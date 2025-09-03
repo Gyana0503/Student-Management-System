@@ -1,0 +1,185 @@
+.editing-row {
+    background: #f9f7e8 !important;
+    transition: background 0.2s;
+}
+.save-btn {
+    background: #28a745;
+    color: #fff;
+    margin-right: 6px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.save-btn:hover {
+    background: #218838;
+}
+.cancel-btn {
+    background: #dc3545;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+.cancel-btn:hover {
+    background: #c82333;
+}
+
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #e3eafc 60%, #f4f4f4 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.navbar {
+    background: #34495e;
+    color: #fff;
+    padding: 16px 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+}
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    flex: 1;
+}
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(44,62,80,0.12);
+    padding: 40px 32px 32px 32px;
+    margin-bottom: 36px;
+    transition: box-shadow 0.3s, transform 0.2s;
+    animation: fadeInCard 0.7s;
+}
+@keyframes fadeInCard { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: translateY(0);} }
+}
+.card:hover {
+    box-shadow: 0 8px 32px rgba(44,62,80,0.12);
+}
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 0;
+}
+form {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+input[type="text"], input[type="number"], input[type="date"], select, .search-box {
+    padding: 12px;
+    border: 1.5px solid #b2bec3;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    width: 100%;
+    max-width: 350px;
+    transition: border 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.04);
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, .search-box:focus {
+    border: 2px solid #007bff;
+    outline: none;
+    box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+}
+.search-box {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto 18px auto;
+    display: block;
+    border-radius: 8px;
+}
+button, .delete-btn {
+    padding: 12px 22px;
+    background: linear-gradient(90deg,#007bff 60%,#0056b3 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.08rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+    box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+button:hover, .delete-btn:hover {
+    background: linear-gradient(90deg,#0056b3 60%,#007bff 100%);
+    box-shadow: 0 8px 32px rgba(44,62,80,0.18);
+    transform: translateY(-2px) scale(1.04);
+}
+.table-responsive {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fafafa;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+}
+th, td {
+    padding: 14px 10px;
+    border-bottom: 1.5px solid #e1e1e1;
+    text-align: center;
+}
+th {
+    background: linear-gradient(90deg,#e3eafc 60%,#f4f4f4 100%);
+    color: #34495e;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+tr:last-child td {
+    border-bottom: none;
+}
+#message {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+.footer {
+    background: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    font-size: 1.08rem;
+    margin-top: auto;
+    box-shadow: 0 -4px 16px rgba(44,62,80,0.10);
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 10px;
+    }
+    .card {
+        padding: 18px 8px 12px 8px;
+    }
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    input[type="text"], input[type="number"], .search-box {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    table, th, td {
+        font-size: 0.95rem;
+    }
+}

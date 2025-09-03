@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Student Management System</div>
+    </nav>
+    <div id="toast" style="display:none;position:fixed;top:24px;right:24px;z-index:9999;padding:16px 28px;background:#007bff;color:#fff;border-radius:8px;font-size:1.1rem;box-shadow:0 4px 16px rgba(44,62,80,0.18);transition:opacity 0.3s;"></div>
+    <div id="spinner" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;">
+        <div style="width:48px;height:48px;border:6px solid #e3eafc;border-top:6px solid #007bff;border-radius:50%;animation:spin 1s linear infinite;"></div>
+    </div>
+    <main>
+        <div class="container">
+            <div class="card">
+                <h2>Add Student</h2>
+                <form id="addForm">
+                    <div style="display: flex; flex-wrap: wrap; gap: 18px 40px;">
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Name" title="Enter student name" required minlength="2" maxlength="50" autocomplete="name" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="registration_number">Registration Number</label>
+                            <input type="text" id="registration_number" name="registration_number" placeholder="Registration Number" title="Enter registration number" required maxlength="20" autocomplete="off" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="date_of_birth">Date of Birth</label>
+                            <input type="date" id="date_of_birth" name="date_of_birth" placeholder="Date of Birth" title="Enter date of birth" required autocomplete="bday" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" placeholder="Age" title="Enter age" required min="1" max="120" autocomplete="off" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required autocomplete="sex" title="Select gender" style="width:100%;">
+                                <option value="">Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="Address" title="Enter address" required maxlength="255" autocomplete="street-address" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="mobile_number">Mobile Number</label>
+                            <input type="text" id="mobile_number" name="mobile_number" placeholder="Mobile Number" title="Enter mobile number" required maxlength="15" autocomplete="tel" style="width:100%;">
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="blood_group">Blood Group</label>
+                            <select id="blood_group" name="blood_group" required autocomplete="off" title="Select blood group" style="width:100%;">
+                                <option value="">Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div style="flex:1 1 45%; min-width:220px; max-width:350px; display:flex; flex-direction:column;">
+                            <label for="marks">Marks</label>
+                            <input type="number" id="marks" name="marks" placeholder="Marks" title="Enter marks" required min="0" max="100" autocomplete="off" style="width:100%;">
+                        </div>
+                    </div>
+                    <div style="width:100%;text-align:center;margin-top:18px;">
+                        <button type="submit" style="min-width:180px;">Add Student</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card">
+                <h2>Student List</h2>
+                <input type="text" id="searchBox" placeholder="Search by name..." class="search-box">
+                <div id="message" style="text-align:center;color:green;"></div>
+                <div class="table-responsive">
+                    <table id="studentTable">
+                        <thead>
+                            <tr>
+                                <th>Serial No.</th>
+                                <th>Name</th>
+                                <th>Reg. No.</th>
+                                <th>DOB</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Address</th>
+                                <th>Mobile</th>
+                                <th>Blood Group</th>
+                                <th>Marks</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>© 2025 Student Management System | Designed by Gyana Ranjan</div>
+    </footer>
+    <script>
+        function showMessage(msg, error=false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.background = error ? '#dc3545' : '#007bff';
+            toast.style.display = 'block';
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(()=>{toast.style.display='none';},300); }, 2500);
+        }
+        function renderStudents(data) {
+            const tbody = document.querySelector('#studentTable tbody');
+            tbody.innerHTML = '';
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan='11'>No students found.</td></tr>`;
+                return;
+            }
+            data.forEach((s, i) => {
+                tbody.innerHTML += `<tr id='row-${s.id}'>
+                    <td>${i + 1}</td>
+                    <td>${s.name}</td>
+                    <td>${s.registration_number}</td>
+                    <td>${s.date_of_birth}</td>
+                    <td>${s.age}</td>
+                    <td><select title='Gender' aria-label='Gender' disabled autocomplete='sex'><option>${s.gender}</option></select></td>
+                    <td>${s.address}</td>
+                    <td>${s.mobile_number}</td>
+                    <td><select title='Blood Group' aria-label='Blood Group' disabled autocomplete='off'><option>${s.blood_group}</option></select></td>
+                    <td><input type='number' value='${s.marks}' min='0' max='100' title='Marks' placeholder='Marks' autocomplete='off' onchange='updateMarks(${s.id}, this.value)'></td>
+                    <td>
+                        <button class='delete-btn' onclick='deleteStudent(${s.id})'>Delete</button>
+                        <span style='display:inline-block;width:8px;'></span>
+                        <button class='update-btn' onclick='showUpdateForm(${s.id})'>Update</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        function showUpdateForm(id) {
+            fetch(`/api/students`).then(res => res.json()).then(data => {
+                const student = data.find(s => s.id === id);
+                if (!student) return;
+                const row = document.getElementById('row-' + id);
+                row.innerHTML = `
+                    <td></td>
+                    <td><input type='text' id='edit-name' name='edit-name' value='${student.name}' autocomplete='name' title='Edit Name' placeholder='Name'></td>
+                    <td>${student.registration_number}</td>
+                    <td><input type='date' id='edit-dob' name='edit-dob' value='${student.date_of_birth}' autocomplete='bday' title='Edit Date of Birth' placeholder='Date of Birth'></td>
+                    <td><input type='number' id='edit-age' name='edit-age' value='${student.age}' min='1' max='120' autocomplete='age' title='Edit Age' placeholder='Age'></td>
+                    <td><select id='edit-gender' name='edit-gender' autocomplete='sex' title='Edit Gender' aria-label='Edit Gender'>
+                        <option value='Male' ${student.gender==='Male'?'selected':''}>Male</option>
+                        <option value='Female' ${student.gender==='Female'?'selected':''}>Female</option>
+                        <option value='Other' ${student.gender==='Other'?'selected':''}>Other</option>
+                    </select></td>
+                    <td><input type='text' id='edit-address' name='edit-address' value='${student.address}' autocomplete='street-address' title='Edit Address' placeholder='Address'></td>
+                    <td><input type='text' id='edit-mobile' name='edit-mobile' value='${student.mobile_number}' autocomplete='tel' title='Edit Mobile Number' placeholder='Mobile Number'></td>
+                    <td><select id='edit-blood-group' name='edit-blood-group' autocomplete='off' title='Edit Blood Group' aria-label='Edit Blood Group'>
+                        <option value='A+' ${student.blood_group==='A+'?'selected':''}>A+</option>
+                        <option value='A-' ${student.blood_group==='A-'?'selected':''}>A-</option>
+                        <option value='B+' ${student.blood_group==='B+'?'selected':''}>B+</option>
+                        <option value='B-' ${student.blood_group==='B-'?'selected':''}>B-</option>
+                        <option value='AB+' ${student.blood_group==='AB+'?'selected':''}>AB+</option>
+                        <option value='AB-' ${student.blood_group==='AB-'?'selected':''}>AB-</option>
+                        <option value='O+' ${student.blood_group==='O+'?'selected':''}>O+</option>
+                        <option value='O-' ${student.blood_group==='O-'?'selected':''}>O-</option>
+                    </select></td>
+                    <td><input type='number' id='edit-marks' name='edit-marks' value='${student.marks}' min='0' max='100' autocomplete='marks' title='Edit Marks' placeholder='Marks'></td>
+                    <td>
+                        <button onclick='submitUpdate(${student.id})'>Save</button>
+                        <button onclick='fetchStudents()'>Cancel</button>
+                    </td>
+                `;
+            });
+        }
+
+        function submitUpdate(id) {
+            const name = document.getElementById('edit-name').value.trim();
+            const date_of_birth = document.getElementById('edit-dob').value;
+            const age = parseInt(document.getElementById('edit-age').value);
+            const gender = document.getElementById('edit-gender').value;
+            const address = document.getElementById('edit-address').value.trim();
+            const mobile_number = document.getElementById('edit-mobile').value.trim();
+            const marks = parseInt(document.getElementById('edit-marks').value);
+            if(
+                name.length < 2 || name.length > 50 ||
+                !date_of_birth ||
+                isNaN(age) || age < 1 || age > 120 ||
+                !['Male','Female','Other'].includes(gender) ||
+                address.length < 1 || address.length > 255 ||
+                mobile_number.length < 1 || mobile_number.length > 15 ||
+                isNaN(marks) || marks < 0 || marks > 100
+            ) {
+                showMessage('Invalid input!', true);
+                return;
+            }
+            fetch(`/api/students/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name,
+                    date_of_birth,
+                    age,
+                    gender,
+                    address,
+                    mobile_number,
+                    marks
+                })
+            }).then(res => res.json()).then(data => {
+                if(data.error) showMessage(data.error, true);
+                else showMessage(data.message);
+                fetchStudents();
+            });
+        }
+        function fetchStudents() {
+            document.getElementById('spinner').style.display = 'block';
+            fetch('/api/students').then(res => res.json()).then(data => {
+                renderStudents(data);
+                document.getElementById('spinner').style.display = 'none';
+            });
+        }
+        function searchStudents(q) {
+            if(!q.trim()) { fetchStudents(); return; }
+            document.getElementById('spinner').style.display = 'block';
+            fetch(`/api/students/search?q=${encodeURIComponent(q)}`)
+                .then(res => res.json())
+                .then(data => {
+                    renderStudents(data);
+                    document.getElementById('spinner').style.display = 'none';
+                });
+        }
+        function updateMarks(id, marks) {
+            fetch(`/api/students/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({marks: parseInt(marks)})
+            }).then(res => res.json()).then(data => {
+                if(data.error) showMessage(data.error, true);
+                else showMessage(data.message);
+                fetchStudents();
+            });
+        }
+        function deleteStudent(id) {
+            fetch(`/api/students/${id}`, {method: 'DELETE'}).then(res => res.json()).then(data => {
+                if(data.error) showMessage(data.error, true);
+                else showMessage(data.message);
+                fetchStudents();
+            });
+        }
+        document.getElementById('addForm').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const registration_number = document.getElementById('registration_number').value.trim();
+            const date_of_birth = document.getElementById('date_of_birth').value;
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const address = document.getElementById('address').value.trim();
+            const mobile_number = document.getElementById('mobile_number').value.trim();
+            const blood_group = document.getElementById('blood_group').value;
+            const marks = parseInt(document.getElementById('marks').value);
+            if(
+                name.length < 2 || name.length > 50 ||
+                registration_number.length < 1 || registration_number.length > 20 ||
+                !date_of_birth ||
+                isNaN(age) || age < 1 || age > 120 ||
+                !['Male','Female','Other'].includes(gender) ||
+                address.length < 1 || address.length > 255 ||
+                !/^\d{10}$/.test(mobile_number) ||
+                !blood_group ||
+                isNaN(marks) || marks < 0 || marks > 100
+            ) {
+                showMessage('Invalid input! Mobile number must be exactly 10 digits.', true);
+                return;
+            }
+            fetch('/api/students', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name,
+                    registration_number,
+                    date_of_birth,
+                    age,
+                    gender,
+                    address,
+                    mobile_number,
+                    blood_group,
+                    marks
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if(data.error) {
+                        showMessage(data.error, true);
+                    } else {
+                        showMessage(data.message);
+                        document.getElementById('addForm').reset();
+                        document.getElementById('name').value = '';
+                        document.getElementById('registration_number').value = '';
+                        document.getElementById('date_of_birth').value = '';
+                        document.getElementById('age').value = '';
+                        document.getElementById('gender').value = '';
+                        document.getElementById('address').value = '';
+                        document.getElementById('mobile_number').value = '';
+                        document.getElementById('blood_group').value = '';
+                        document.getElementById('marks').value = '';
+                    }
+                    fetchStudents();
+                });
+            };
+        document.getElementById('searchBox').addEventListener('input', function() {
+            searchStudents(this.value);
+        });
+        fetchStudents();
+    </script>
+</body>
+</html>
